@@ -22,25 +22,36 @@ app.get('/api/status', (req, res) => res.json({
        ultima_version_api_info:{
           "url_descarga_ultima_version":"https://firmadigital.bo/herramientas/#descargas",
           compilacion:1020,
-          api_version:"1.3.0"
+          api_version: "1.3.0"
        },
-       compilacion:1020,
-       api_version:"1.3.0"
+       compilacion: 1020,
+       api_version: "1.3.0"
     },
-    finalizado:true,
-    mensaje:"Servicio iniciado correctamente"
+    finalizado: true,
+    mensaje: "Servicio iniciado correctamente"
 }));
 
 app.get('/api/token/status', (req, res) => res.json({
     datos: {
-        "connected": true,
-        "tokens": [
+        connected: true,
+        tokens: [
             "FT ePass2003Auto"
         ]
     },
-    "finalizado": true,
-    "mensaje": "Lista de Tokens obtenida"
+    finalizado: true,
+    mensaje: "Lista de Tokens obtenida"
 }));
+
+app.post('api/token/generate_csr', (req, res) => res.json({
+    datos: {
+        csr: "-----BEGIN CERTIFICATE REQUEST-----\n
+                MIn5HgH3Lpzsm8njCYxOwH....
+                vrtmYNVlM9MVvwIvsQ8074Y0MI\n
+                -----END CERTIFICATE REQUEST-----\n"
+    },
+    finalizado: true,
+    mensaje: "Se genero el CSR correctamente"
+})
 
 https.createServer({
   key: fs.readFileSync('./src/tls/server.key'),
