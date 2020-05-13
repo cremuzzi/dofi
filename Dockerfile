@@ -4,7 +4,6 @@ LABEL maintainer="Carlos Remuzzi carlosremuzzi@gmail.com"
 LABEL org.label-schema.description="Dofi is not fido"
 LABEL org.label-schema.name="dofi"
 LABEL org.label-schema.schema-version="1.0"
-LABEL org.label-schema.vcs-ref=$GITLAB_SHA
 LABEL org.label-schema.vendor="Remuzzi"
 
 ENV PORT=9000
