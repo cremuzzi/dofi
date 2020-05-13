@@ -15,7 +15,7 @@ app.use(morgan('tiny'));
 const host= process.env.HOST || "0.0.0.0";
 const port = process.env.PORT || 9000;
 
-app.get('/', (req, res) => res.send('this is Wildcat'))
+app.get('/', (req, res) => res.send('D0FI is N0t FID0'))
 
 app.get('/api/status', (req, res) => res.json({
     datos:{
