@@ -51,16 +51,57 @@ app.get('/api/token/status', (req, res) => {
     })
 });
 
-app.post('api/token/generate_csr', (req, res) => res.json({
-    datos: {
-        csr: "-----BEGIN CERTIFICATE REQUEST-----\n
-                MIn5HgH3Lpzsm8njCYxOwH....
-                vrtmYNVlM9MVvwIvsQ8074Y0MI\n
-                -----END CERTIFICATE REQUEST-----\n"
-    },
-    finalizado: true,
-    mensaje: "Se genero el CSR correctamente"
-})
+app.post('/api/token/data', (req, res) => {
+    console.log(req.body);
+    crt_data = '-----BEGIN CERTIFICATE-----\n5hmguu1JmxVDV3eGpGfwrjDIAgUubDOZcFpa67dzc3bN+zUei7Wab+1lcomyrrDy\nblaHblahblahD0f115N0tF1D0\n\n-----END CERTIFICATE-----\n';
+
+    fs.readFile(CRT_PATH, 'utf8', (err, data) => {
+        if (!err) crt_data = data;
+
+        res.json({
+            datos: {
+                data_token: {
+                    certificates: 1,
+                    data: [
+                        {
+                            tipo: "PRIMARY_KEY",
+                            tipo_desc: "Clave Privada",
+                            alias: "doffer",
+                            id: "333"
+                        },
+                        {
+                            tipo: "X509_CERTIFICATE",
+                            tipo_desc: "Certificado",
+                            alias: "doffer",
+                            pem: crt_data,
+                            id: "333",
+                            common_name: "Doffer Van Dof"
+                        }
+                    ],
+                    private_keys:1
+                }
+            },
+            finalizado: true,
+            mensaje: "Se cargaron los datos del token correctamente"
+        })
+    });
+});
+
+app.post('/api/token/generate_csr', (req, res) => {
+    console.log(req.body);
+    csr_data = '-----BEGIN CERTIFICATE REQUEST-----\njMamCIfXTX8vp8QcjFEbYIHUl3Fg06pmv1Imrm2Vime+GqxA1I9R2ilYtWunlY2l\nHX\/UgFAFKW\/uR2zICF67KD0wH76Ts8UkHYR3+ZrHhpjPpy+zEmlDLv4pSP781sNR\nXoDb\n-----END CERTIFICATE REQUEST-----\n';
+    fs.readFile(CSR_PATH, 'utf8', (err, data) => {
+        if (!err) cert_data = data;
+
+        res.json({
+            datos: {
+                csr: csr_data
+            },
+            finalizado: true,
+            mensaje: "Se genero el CSR correctamente"
+        })
+    });
+});
 
 https.createServer({
   key: fs.readFileSync('./src/tls/server.key'),
