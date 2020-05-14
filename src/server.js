@@ -104,8 +104,8 @@ app.post('/api/token/generate_csr', (req, res) => {
 });
 
 https.createServer({
-  key: fs.readFileSync('./src/tls/server.key'),
-  cert: fs.readFileSync('./src/tls/server.cert')
+  key: fs.readFileSync(path.join('.','src/tls/server.key')),
+  cert: fs.readFileSync(path.join('.','src/tls/server.cert'))
 }, app)
 .listen(port, host, function () {
   console.log(`\x1b[35m%s\x1b[0m`,`
