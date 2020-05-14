@@ -37,16 +37,19 @@ app.get('/api/status', (req, res) => res.json({
     mensaje: "Servicio iniciado correctamente"
 }));
 
-app.get('/api/token/status', (req, res) => res.json({
-    datos: {
-        connected: true,
-        tokens: [
-            "FT ePass2003Auto"
-        ]
-    },
-    finalizado: true,
-    mensaje: "Lista de Tokens obtenida"
-}));
+app.get('/api/token/status', (req, res) => {
+    console.log(req.body);
+    res.json({
+        datos: {
+            connected: true,
+            tokens: [
+                "D0fi is Not FiD0"
+            ]
+        },
+        finalizado: true,
+        mensaje: "Lista de Tokens obtenida"
+    })
+});
 
 app.post('api/token/generate_csr', (req, res) => res.json({
     datos: {
