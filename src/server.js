@@ -3,6 +3,7 @@ const express = require('express')
 const fs = require('fs')
 const https = require('https')
 const morgan = require('morgan');
+const path = require('path')
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
