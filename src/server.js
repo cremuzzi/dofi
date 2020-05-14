@@ -5,13 +5,16 @@ const https = require('https')
 const morgan = require('morgan');
 const path = require('path')
 
+const app = express()
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(morgan('tiny'));
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-
-app.use(morgan('tiny'));
 
 const host= process.env.HOST || "0.0.0.0";
 const port = process.env.PORT || 9000;
