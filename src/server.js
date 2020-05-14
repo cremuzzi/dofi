@@ -18,6 +18,8 @@ app.use(function(req, res, next) {
 
 const host= process.env.HOST || "0.0.0.0";
 const port = process.env.PORT || 9000;
+const CRT_PATH = process.env.CSR_PATH || path.join(__dirname, 'my.crt') ;
+const CSR_PATH = process.env.CERT_PATH || path.join(__dirname, 'my.csr') ;
 
 app.get('/', (req, res) => res.send('D0FI is N0t FID0'))
 
