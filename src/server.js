@@ -1,7 +1,7 @@
-var express = require('express')
-var app = express()
-var fs = require('fs')
-var https = require('https')
+const bodyParser = require('body-parser')
+const express = require('express')
+const fs = require('fs')
+const https = require('https')
 const morgan = require('morgan');
 
 app.use(function(req, res, next) {
