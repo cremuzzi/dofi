@@ -51,6 +51,22 @@ app.get('/api/token/status', (req, res) => {
     })
 });
 
+app.get('/api/token/connected', (req, res) => {
+    console.log(req.body);
+    res.json({
+        datos: {
+            connected: true,
+            tokens: [{
+                slot: 0
+                serial: "34343434",
+                name: "Epass 2003"
+            }]
+        },
+        finalizado: true,
+        mensaje: "Lista de Tokens obtenida"
+    });
+});
+
 app.post('/api/token/data', (req, res) => {
     console.log(req.body);
     crt_data = '-----BEGIN CERTIFICATE-----\n5hmguu1JmxVDV3eGpGfwrjDIAgUubDOZcFpa67dzc3bN+zUei7Wab+1lcomyrrDy\nblaHblahblahD0f115N0tF1D0\n\n-----END CERTIFICATE-----\n';
