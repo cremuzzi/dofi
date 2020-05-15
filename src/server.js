@@ -57,9 +57,9 @@ app.get('/api/token/connected', (req, res) => {
         datos: {
             connected: true,
             tokens: [{
-                slot: 0
+                slot: 0,
                 serial: "34343434",
-                name: "Epass 2003"
+                name: "FT ePass2003Auto"
             }]
         },
         finalizado: true,
@@ -69,36 +69,14 @@ app.get('/api/token/connected', (req, res) => {
 
 app.post('/api/token/data', (req, res) => {
     console.log(req.body);
-    crt_data = '-----BEGIN CERTIFICATE-----\n5hmguu1JmxVDV3eGpGfwrjDIAgUubDOZcFpa67dzc3bN+zUei7Wab+1lcomyrrDy\nblaHblahblahD0f115N0tF1D0\n\n-----END CERTIFICATE-----\n';
-
+    crt_data = null ;
     fs.readFile(CRT_PATH, 'utf8', (err, data) => {
         if (!err) crt_data = data;
 
         res.json({
-            datos: {
-                data_token: {
-                    certificates: 1,
-                    data: [
-                        {
-                            tipo: "PRIMARY_KEY",
-                            tipo_desc: "Clave Privada",
-                            alias: "doffer",
-                            id: "333"
-                        },
-                        {
-                            tipo: "X509_CERTIFICATE",
-                            tipo_desc: "Certificado",
-                            alias: "doffer",
-                            pem: crt_data,
-                            id: "333",
-                            common_name: "Doffer Van Dof"
-                        }
-                    ],
-                    private_keys:1
-                }
-            },
-            finalizado: true,
-            mensaje: "Se cargaron los datos del token correctamente"
+            datos: null,
+            finalizado: false,
+            mensaje: "Descripción del error"
         })
     });
 });
