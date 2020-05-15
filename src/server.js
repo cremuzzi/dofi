@@ -43,7 +43,7 @@ app.get('/api/token/status', (req, res) => {
         datos: {
             connected: true,
             tokens: [
-                "D0fi is Not FiD0"
+                "FT ePass2003Auto"
             ]
         },
         finalizado: true,
