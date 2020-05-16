@@ -23,6 +23,13 @@ const CRT_PATH = process.env.CRT_PATH || path.join('/mycrypto','my.crt');
 
 app.get('/', (req, res) => res.send('D0FI is N0t FID0'))
 
+app.get('/api/config/obtener', (req, res) => res.json({
+    datos: {
+    },
+    finalizado: true,
+    mensaje: "Parámetros para archivo de configuracion"
+}));
+
 app.get('/api/status', (req, res) => res.json({
     datos: {
         compilacion: 2000,
