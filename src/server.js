@@ -24,17 +24,12 @@ const CRT_PATH = process.env.CRT_PATH || path.join('/mycrypto','my.crt');
 app.get('/', (req, res) => res.send('D0FI is N0t FID0'))
 
 app.get('/api/status', (req, res) => res.json({
-    datos:{
-       ultima_version_api_info:{
-          "url_descarga_ultima_version":"https://firmadigital.bo/herramientas/#descargas",
-          compilacion:1020,
-          api_version: "1.3.0"
-       },
-       compilacion: 1020,
-       api_version: "1.3.0"
+    datos: {
+        compilacion: 2000,
+        api_version: "1.0.2"
     },
     finalizado: true,
-    mensaje: "Servicio iniciado correctamente"
+    mensaje: "Servicio ejecutandose correctamente"
 }));
 
 app.get('/api/token/status', (req, res) => {
