@@ -99,6 +99,27 @@ app.post('/api/token/generate_csr', (req, res) => {
     });
 });
 
+app.post('/api/token/verificar_driver', (req, res) => {
+    console.log(req.body);
+    res.json({
+        datos: [{
+            globalName: "F*u",
+            slot: 0,
+            token :{
+                manufacture: "MOo",
+                max_pin_length: 16,
+                serial: "1337",
+                model: "PKCS#15",
+                label: "D0f1",
+                support_opensc: false,
+                min_pin_length: 4
+            }
+        }],
+        finalizado: true,
+        mensaje: "Validación realizada correctamente"
+    });
+});
+
 https.createServer({
   key: fs.readFileSync(path.join('.','src/tls/server.key')),
   cert: fs.readFileSync(path.join('.','src/tls/server.cert'))
