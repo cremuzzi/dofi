@@ -60,8 +60,8 @@ app.get('/api/token/connected', (req, res) => {
             connected: true,
             tokens: [{
                 slot: 0,
-                serial: "34343434",
-                name: "FT ePass2003Auto"
+                serial: "40F198765432101F",
+                name: "User PIN (D0F1)"
             }]
         },
         finalizado: true,
