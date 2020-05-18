@@ -71,15 +71,24 @@ app.get('/api/token/connected', (req, res) => {
 
 app.post('/api/token/data', (req, res) => {
     console.log(req.body);
-    crt_data = null ;
-    fs.readFile(CRT_PATH, 'utf8', (err, data) => {
-        if (!err) crt_data = data;
-
-        res.json({
-            datos: null,
-            finalizado: false,
-            mensaje: "Descripción del error"
-        })
+    res.json({
+        datos: {
+            data_token: {
+                certificates: 0,
+                data: [
+                    {
+                        alias: "myalias",
+                        id: "23571113",
+                        tiene_certificado: false,
+                        tipo: "PRIMARY_KEY",
+                        tipo_desc: "Clave Privada"
+                    }
+                ],
+                private_keys: 1
+            }
+        },
+        finalizado: true,
+        mensaje: "Datos de token obtenidos correctamente"
     });
 });
 
