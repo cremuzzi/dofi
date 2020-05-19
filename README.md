@@ -1,9 +1,3 @@
-# DOFI
+# D0F1
 
-D0FI is N0t FID0 
-
-```sh
-npm i
-
-node src/server.js
-```
+D0F1 i5 N0t f1d0
