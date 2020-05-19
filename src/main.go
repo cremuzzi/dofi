@@ -35,14 +35,23 @@ func main() {
         })
     })
 
-    /*
-app.get('/api/config/obtener', (req, res) => res.json({
-    datos: {
-    },
-    finalizado: true,
-    mensaje: "Parámetros para archivo de configuracion"
-}));
-*/
+    app.Get("/api/config/obtener", func(c *fiber.Ctx) {
+        c.JSON(fiber.Map{
+            "datos": fiber.Map{
+                "profile.file_name": "/root/FidoProfiles/2357111317.default.profile",
+                "certificado.emisor": "firmadigital_bo.pem",
+                "profile": fiber.Map{
+                    "driverPath":"/usr/lib/pkcs11/opensc-pkcs11.so",
+                    "name":"40f1",
+                    "type":"PKCS11",
+                },
+                "firmatic.enabled": "false",
+                "profile.name": "2357111317.default.profile",
+            },
+            "finalizado": true,
+            "mensaje": "Parámetros para archivo de configuracion",
+        })
+    })
 
     app.Get("/api/token/status", func(c *fiber.Ctx) {
         log.Print(c.Body)
