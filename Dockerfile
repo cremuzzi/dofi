@@ -1,28 +1,28 @@
-FROM node:14.2.0-alpine3.11
+FROM golang:1.14.3-alpine3.11 AS dev
 
 LABEL maintainer="Carlos Remuzzi carlosremuzzi@gmail.com"
-LABEL org.label-schema.description="Dofi is not fido"
-LABEL org.label-schema.name="dofi"
+LABEL org.label-schema.description="D0F1 i5 n0t f1d0"
+LABEL org.label-schema.name="D0F1"
 LABEL org.label-schema.schema-version="1.0"
 LABEL org.label-schema.vendor="Remuzzi"
 
-ENV PORT=9000
+WORKDIR /go/src/dofi
 
-WORKDIR /home/node/app
+COPY ./src ./
 
-COPY package.json .
+RUN apk add --no-cache --virtual .build-deps \
+        git \
+    && go get -d -v ./... \
+    && go build -ldflags='-s -w -extldflags=-static' -o /go/bin/
 
-RUN apk add --no-cache \
-        tini \
-    && npm i \
-    && chown -R node:node /home/node/
+FROM busybox:musl
 
-COPY --chown=node:node ./src ./src
+ENV BIND_ADDRESS=:9000 \
+    CONFIG_FILE=/etc/dofi/config.yaml \
+    BASE_URL=https://localhost:9000
 
-USER node
+COPY --from=builder /go/bin/dofi /usr/bin/dofi
 
 EXPOSE 9000
 
-ENTRYPOINT ["/sbin/tini","--"]
-
-CMD ["node","src/server.js"]
+CMD ["dofi"]
