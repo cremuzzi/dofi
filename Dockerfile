@@ -15,9 +15,14 @@ RUN apk add --no-cache \
     && go mod download
 
 COPY cmd/dofi cmd/dofi
-RUN go build -ldflags='-s -w -extldflags=-static' -o /go/bin/dofi github.com/cremuzzi/dofi/cmd/dofi
+RUN CGO_ENABLED=0 \
+    GOOS=linux \
+    GOARCH=amd64 \
+    go build \
+        -a -ldflags '-s -w -extldflags "-static"' \
+        -o /go/bin/dofi github.com/cremuzzi/dofi/cmd/dofi
 
-FROM busybox:musl
+FROM scratch
 
 ENV BIND_ADDRESS=:9000 \
     CONFIG_FILE=/etc/dofi/config.yaml \
