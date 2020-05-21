@@ -19,7 +19,7 @@ func main() {
     app.Use(logger.New())
 
     app.Get("/", func(c *fiber.Ctx) {
-        c.JSON(fiber.Map{"data": "D0F1 i5 N0t FID0"})
+        c.JSON(fiber.Map{"data": "D0F1 15 n07 f1d0"})
     })
 
     app.Get("/api/status", func(c *fiber.Ctx) {
