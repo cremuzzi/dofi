@@ -85,7 +85,7 @@ func main() {
     }
     config := &tls.Config{Certificates: []tls.Certificate{cer}}
 
-    fmt.Printf(`\x1b[35m%s\x1b[0m`,`
+    log.Print(`
 
                    ,%%&*        .......              
                    /###%%&#((/////////////(%@&,      
@@ -115,7 +115,7 @@ func main() {
                    /(*(#%&%%((##&/(&&######%%&       
                  ,#*##%,,////////&#########%%&.      
                  (//#%,,////////%###&######%%(       
-                (# D0F1 1s N0t FiD0 #&######%%(      
+                (# D0F1 15 n07 f1d0 #&######%%(      
     `)
 
     app.Listen(9000, config)
