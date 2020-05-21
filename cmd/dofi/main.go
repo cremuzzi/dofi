@@ -79,7 +79,7 @@ func main() {
         })
     })
 
-    cer, err := tls.LoadX509KeyPair("tls/server.crt", "tls/server.key")
+    cer, err := tls.LoadX509KeyPair("/etc/dofi/tls/server.crt", "/etc/dofi/tls/server.key")
     if err != nil {
         log.Fatal(err)
     }
