@@ -1,13 +1,11 @@
 package main
 
 import (
-    "fmt"
-    "log"
-    //"io/ioutil"
     "crypto/tls"
     "github.com/gofiber/cors"
     "github.com/gofiber/fiber"
     "github.com/gofiber/logger"
+    "log"
 )
 
 func main() {
