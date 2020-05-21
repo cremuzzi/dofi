@@ -1,7 +1,7 @@
 FROM golang:1.14.3-alpine3.11 AS builder
 
 LABEL maintainer="Carlos Remuzzi carlosremuzzi@gmail.com"
-LABEL org.label-schema.description="D0F1 i5 n0t f1d0"
+LABEL org.label-schema.description="D0F1 15 n07 f1d0"
 LABEL org.label-schema.name="D0F1"
 LABEL org.label-schema.schema-version="1.0"
 LABEL org.label-schema.vendor="Remuzzi"
