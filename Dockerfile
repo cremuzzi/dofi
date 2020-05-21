@@ -6,19 +6,16 @@ LABEL org.label-schema.name="D0F1"
 LABEL org.label-schema.schema-version="1.0"
 LABEL org.label-schema.vendor="Remuzzi"
 
-RUN apk add --no-cache \
-        git \
-    && go get github.com/golang/dep/cmd/dep
-
 WORKDIR /go/src/github.com/cremuzzi/dofi
 
-#COPY Gopkg.* ./
-#RUN dep ensure --vendor-only
+COPY ./go.mod ./go.sum ./
 
-COPY . .
-#RUN go install github.com/cremuzzi/dofi/cmd/server
-#RUN go install github.com/cremuzzi/dofi/
-#RUN go build -ldflags='-s -w -extldflags=-static' -o /go/bin/
+RUN apk add --no-cache \
+        git \
+    && go mod download
+
+COPY cmd/dofi cmd/dofi
+RUN go build -ldflags='-s -w -extldflags=-static' -o /go/bin/dofi github.com/cremuzzi/dofi/cmd/dofi
 
 FROM busybox:musl
 
