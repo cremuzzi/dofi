@@ -58,8 +58,6 @@ func GetConfigPath() (string, error) {
 		configPath = "config.yaml"
 	}
 
-	log.Println(configPath)
-
 	if err := ValidateConfigPath(configPath); err != nil {
 		return "", err
 	}
@@ -67,9 +65,6 @@ func GetConfigPath() (string, error) {
 }
 
 func (config Config) Run() {
-
-	certPem := []byte(``)
-	keyPem := []byte(``)
 
 	app := fiber.New(&fiber.Settings{
 		DisableStartupMessage: true,
@@ -140,7 +135,7 @@ func (config Config) Run() {
 		})
 	})
 
-	cer, err := tls.X509KeyPair(certPem, keyPem)
+	cer, err := tls.X509KeyPair([]byte(config.Server.TlsCert), []byte(config.Server.TlsKey))
 	if err != nil {
 		log.Fatal(err)
 	}
