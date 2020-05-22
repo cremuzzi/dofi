@@ -108,7 +108,7 @@ func (config Config) Run() {
 	})
 
 	app.Get("/api/token/status", func(c *fiber.Ctx) {
-		log.Print(c.Body)
+		log.Print(c.Body())
 		c.JSON(fiber.Map{
 			"datos": fiber.Map{
 				"connected": true,
@@ -120,7 +120,7 @@ func (config Config) Run() {
 	})
 
 	app.Get("/api/token/connected", func(c *fiber.Ctx) {
-		log.Print(c.Body)
+		log.Print(c.Body())
 		c.JSON(fiber.Map{
 			"datos": fiber.Map{
 				"connected": true,
@@ -134,6 +134,67 @@ func (config Config) Run() {
 			"mensaje":    "Lista de Tokens obtenida",
 		})
 	})
+
+	app.Post("/api/token/data", func(c *fiber.Ctx) {
+		log.Print(c.Body())
+		c.JSON(fiber.Map{
+			"datos": fiber.Map{
+				"data_token": fiber.Map{
+					"certificates": 0,
+					"data": []fiber.Map{fiber.Map{
+							"alias": "myalias",
+							"id": "23571113",
+							"tiene_certificado": false,
+							"tipo": "PRIMARY_KEY",
+							"tipo_desc": "Clave Privada",
+						}},
+					"private_keys": 1,
+                },
+			},
+			"finalizado": true,
+            "mensaje": "Datos de token obtenidos correctamente",
+		})
+	})
+
+/* TODO
+app.post('/api/token/generate_csr', (req, res) => {
+    console.log(req.body);
+    csr_data = '-----BEGIN CERTIFICATE REQUEST-----\njMamCIfXTX8vp8QcjFEbYIHUl3Fg06pmv1Imrm2Vime+GqxA1I9R2ilYtWunlY2l\nHX\/UgFAFKW\/uR2zICF67KD0wH76Ts8UkHYR3+ZrHhpjPpy+zEmlDLv4pSP781sNR\nXoDb\n-----END CERTIFICATE REQUEST-----\n';
+    fs.readFile(CSR_PATH, 'utf8', (err, data) => {
+        if (!err) csr_data = data;
+
+        res.json({
+            datos: {
+                csr: csr_data
+            },
+            finalizado: true,
+            mensaje: "Se genero el CSR correctamente"
+        })
+    });
+});
+
+app.post('/api/token/verificar_driver', (req, res) => {
+    console.log(req.body);
+    res.json({
+        datos: [{
+            globalName: "F*u",
+            slot: 0,
+            token :{
+                manufacture: "MOo",
+                max_pin_length: 16,
+                serial: "1337",
+                model: "PKCS#15",
+                label: "D0f1",
+                support_opensc: false,
+                min_pin_length: 4
+            }
+        }],
+        finalizado: true,
+        mensaje: "Validación realizada correctamente"
+    });
+});
+
+*/
 
 	cer, err := tls.X509KeyPair([]byte(config.Server.TlsCert), []byte(config.Server.TlsKey))
 	if err != nil {
