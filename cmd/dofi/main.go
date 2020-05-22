@@ -2,13 +2,74 @@ package main
 
 import (
 	"crypto/tls"
+	"fmt"
 	"github.com/gofiber/cors"
 	"github.com/gofiber/fiber"
 	"github.com/gofiber/logger"
+	"gopkg.in/yaml.v2"
 	"log"
+	"os"
 )
 
-func main() {
+/* from https://dev.to/koddr/let-s-write-config-for-your-golang-web-app-on-right-way-yaml-5ggp  */
+type Config struct {
+	Server struct {
+		Host    string `yaml:"host"`
+		Port    int    `yaml:"port"`
+		TlsCert string `yaml:"tls_cert"`
+		TlsKey  string `yaml:"tls_key"`
+	} `yaml:"server"`
+}
+
+func NewConfig(configPath string) (*Config, error) {
+	config := &Config{}
+
+	file, err := os.Open(configPath)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	d := yaml.NewDecoder(file)
+
+	if err := d.Decode(&config); err != nil {
+		return nil, err
+	}
+
+	return config, nil
+}
+
+func ValidateConfigPath(path string) error {
+	s, err := os.Stat(path)
+	if err != nil {
+		return err
+	}
+	if s.IsDir() {
+		return fmt.Errorf("'%s' is a directory, not a normal file", path)
+	}
+	return nil
+}
+
+func GetConfigPath() (string, error) {
+
+	configPath := os.Getenv("CONFIG_PATH")
+
+	if len(configPath) == 0 {
+		configPath = "config.yaml"
+	}
+
+	log.Println(configPath)
+
+	if err := ValidateConfigPath(configPath); err != nil {
+		return "", err
+	}
+	return configPath, nil
+}
+
+func (config Config) Run() {
+
+	certPem := []byte(``)
+	keyPem := []byte(``)
 
 	app := fiber.New(&fiber.Settings{
 		DisableStartupMessage: true,
@@ -79,11 +140,12 @@ func main() {
 		})
 	})
 
-	cer, err := tls.LoadX509KeyPair("/etc/dofi/tls/server.crt", "/etc/dofi/tls/server.key")
+	cer, err := tls.X509KeyPair(certPem, keyPem)
 	if err != nil {
 		log.Fatal(err)
 	}
-	config := &tls.Config{Certificates: []tls.Certificate{cer}}
+
+	tlsConfig := &tls.Config{Certificates: []tls.Certificate{cer}}
 
 	log.Print(`
 
@@ -118,5 +180,19 @@ func main() {
                 (# D0F1 15 n07 f1d0 #&######%%(      
     `)
 
-	app.Listen(9000, config)
+	app.Listen(9000, tlsConfig)
+}
+
+func main() {
+	cfgPath, err := GetConfigPath()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	cfg, err := NewConfig(cfgPath)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	cfg.Run()
 }
