@@ -11,7 +11,6 @@ import (
 	"os"
 )
 
-/* from https://dev.to/koddr/let-s-write-config-for-your-golang-web-app-on-right-way-yaml-5ggp  */
 type Config struct {
 	Server struct {
 		Host    string `yaml:"host"`
@@ -19,7 +18,7 @@ type Config struct {
 		TlsCert string `yaml:"tls_cert"`
 		TlsKey  string `yaml:"tls_key"`
 	} `yaml:"server"`
-    Token struct {
+	Token struct {
 		Cert string `yaml:"cert"`
 		Csr  string `yaml:"csr"`
 	} `yaml:"token"`
