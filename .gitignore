@@ -6,3 +6,4 @@
 *.pem
 *.swp
 config.yaml
+secret.yaml
