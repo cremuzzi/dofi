@@ -19,6 +19,10 @@ type Config struct {
 		TlsCert string `yaml:"tls_cert"`
 		TlsKey  string `yaml:"tls_key"`
 	} `yaml:"server"`
+    Token struct {
+		Cert string `yaml:"cert"`
+		Csr  string `yaml:"csr"`
+	} `yaml:"token"`
 }
 
 func NewConfig(configPath string) (*Config, error) {
@@ -164,9 +168,9 @@ func (config Config) Run() {
 			"mensaje":    "Descripción del error",
 		}
 
-		if config.Server.TlsCert != "" {
+		if config.Token.Csr != "" {
 			response_obj["datos"] = fiber.Map{
-				"csr": config.Server.TlsCert,
+				"csr": config.Token.Csr,
 			}
 			response_obj["finalizado"] = true
 			response_obj["mensaje"] = "Se genero el CSR correctamente"
