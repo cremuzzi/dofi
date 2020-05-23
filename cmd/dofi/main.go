@@ -172,29 +172,28 @@ func (config Config) Run() {
 	           })
 	       });
 	   });
-
-	   app.post('/api/token/verificar_driver', (req, res) => {
-	       console.log(req.body);
-	       res.json({
-	           datos: [{
-	               globalName: "F*u",
-	               slot: 0,
-	               token :{
-	                   manufacture: "MOo",
-	                   max_pin_length: 16,
-	                   serial: "1337",
-	                   model: "PKCS#15",
-	                   label: "D0f1",
-	                   support_opensc: false,
-	                   min_pin_length: 4
-	               }
-	           }],
-	           finalizado: true,
-	           mensaje: "Validación realizada correctamente"
-	       });
-	   });
-
 	*/
+
+	app.Post("/api/token/verificar_driver", func(c *fiber.Ctx) {
+		log.Print(c.Body())
+		c.JSON(fiber.Map{
+			"datos": []fiber.Map{fiber.Map{
+				"globalName": "D0F1",
+				"slot":       0,
+				"token": fiber.Map{
+					"manufacture":    "d0f1",
+					"max_pin_length": 16,
+					"serial":         "1337",
+					"model":          "PKCS#15",
+					"label":          "D0F1",
+					"support_opensc": false,
+					"min_pin_length": 4,
+				},
+			}},
+			"finalizado": true,
+			"mensaje":    "Validación realizada correctamente",
+		})
+	})
 
 	cer, err := tls.X509KeyPair([]byte(config.Server.TlsCert), []byte(config.Server.TlsKey))
 	if err != nil {
