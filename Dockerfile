@@ -24,9 +24,13 @@ RUN CGO_ENABLED=0 \
 
 FROM scratch
 
-ENV BIND_ADDRESS=:9000 \
-    CONFIG_FILE=/etc/dofi/config.yaml \
-    BASE_URL=https://localhost:9000
+LABEL maintainer="Carlos Remuzzi carlosremuzzi@gmail.com"
+LABEL org.label-schema.description="D0F1 15 n07 f1d0"
+LABEL org.label-schema.name="D0F1"
+LABEL org.label-schema.schema-version="1.0"
+LABEL org.label-schema.vendor="Remuzzi"
+
+ENV CONFIG_PATH=/config.yaml
 
 COPY --from=builder /go/bin/dofi /usr/bin/dofi
 
