@@ -156,23 +156,24 @@ func (config Config) Run() {
 		})
 	})
 
-	/* TODO
-	   app.post('/api/token/generate_csr', (req, res) => {
-	       console.log(req.body);
-	       csr_data = '-----BEGIN CERTIFICATE REQUEST-----\njMamCIfXTX8vp8QcjFEbYIHUl3Fg06pmv1Imrm2Vime+GqxA1I9R2ilYtWunlY2l\nHX\/UgFAFKW\/uR2zICF67KD0wH76Ts8UkHYR3+ZrHhpjPpy+zEmlDLv4pSP781sNR\nXoDb\n-----END CERTIFICATE REQUEST-----\n';
-	       fs.readFile(CSR_PATH, 'utf8', (err, data) => {
-	           if (!err) csr_data = data;
+	app.Post("/api/token/generate_csr", func(c *fiber.Ctx) {
+		log.Print(c.Body())
+		response_obj := fiber.Map{
+			"datos":      nil,
+			"finalizado": false,
+			"mensaje":    "Descripción del error",
+		}
 
-	           res.json({
-	               datos: {
-	                   csr: csr_data
-	               },
-	               finalizado: true,
-	               mensaje: "Se genero el CSR correctamente"
-	           })
-	       });
-	   });
-	*/
+		if config.Server.TlsCert != "" {
+			response_obj["datos"] = fiber.Map{
+				"csr": config.Server.TlsCert,
+			}
+			response_obj["finalizado"] = true
+			response_obj["mensaje"] = "Se genero el CSR correctamente"
+		}
+
+		c.JSON(response_obj)
+	})
 
 	app.Post("/api/token/verificar_driver", func(c *fiber.Ctx) {
 		log.Print(c.Body())
