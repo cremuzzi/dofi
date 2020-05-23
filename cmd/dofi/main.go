@@ -205,8 +205,7 @@ func (config Config) Run() {
 	}
 
 	tlsConfig := &tls.Config{Certificates: []tls.Certificate{cer}}
-
-	log.Print(`
+	asciiLogo := `
 
                    ,%%&*        .......              
                    /###%%&#((/////////////(%@&,      
@@ -237,7 +236,9 @@ func (config Config) Run() {
                  ,#*##%,,////////&#########%%&.      
                  (//#%,,////////%###&######%%(       
                 (# D0F1 15 n07 f1d0 #&######%%(      
-    `)
+    `
+
+	fmt.Println("\033[35m" + asciiLogo + "\033[0m")
 
 	app.Listen(9000, tlsConfig)
 }
