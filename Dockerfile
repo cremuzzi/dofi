@@ -12,7 +12,8 @@ COPY ./go.mod ./go.sum ./
 
 RUN apk add --no-cache \
         git \
-    && go mod download
+    && go mod download \
+    && adduser -u 10001 -D dofi
 
 COPY cmd/dofi cmd/dofi
 RUN CGO_ENABLED=0 \
@@ -32,8 +33,13 @@ LABEL org.label-schema.vendor="Remuzzi"
 
 ENV CONFIG_PATH=/config.yaml
 
+COPY --from=builder /etc/passwd /etc/passwd
 COPY --from=builder /go/bin/dofi /usr/bin/dofi
 
+USER dofi
+
 EXPOSE 9000
+
+VOLUME ["/config.yaml"]
 
 CMD ["dofi"]
