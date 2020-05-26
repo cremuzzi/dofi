@@ -16,8 +16,8 @@ RUN apk add --no-cache \
 
 COPY cmd/dofi cmd/dofi
 RUN CGO_ENABLED=0 \
-    GOOS=linux \
     GOARCH=amd64 \
+    GOOS=linux \
     go build \
         -a -ldflags '-s -w -extldflags "-static"' \
         -o /go/bin/dofi github.com/cremuzzi/dofi/cmd/dofi
