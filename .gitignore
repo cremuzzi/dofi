@@ -1,9 +1,9 @@
 *.cert
-*.csr
 *.crt
+*.csr
 *.key
 *.log
+*.p12
 *.pem
 *.swp
 config.yaml
-secret.yaml
