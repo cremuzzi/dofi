@@ -183,8 +183,8 @@ func (config Config) Run() {
 				"data_token": fiber.Map{
 					"certificates": 0,
 					"data": []fiber.Map{fiber.Map{
-						"alias":             "myalias",
-						"id":                "23571113",
+						"alias":             "d0f1",
+						"id":                "16051105",
 						"tiene_certificado": false,
 						"tipo":              "PRIMARY_KEY",
 						"tipo_desc":         "Clave Privada",
